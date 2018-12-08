@@ -121,6 +121,35 @@ $db->query($sql);
 
 
 }
+
+    //upload photo
+    public function uploadPhoto($table,$field){
+    	global $db;
+        $message="";
+        $upOne = realpath(__DIR__ . '/..');
+        $safeDir = $upOne.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR;
+        $filename = basename($_FILES['image']['name']);
+        $ext = substr($filename, strrpos($filename, '.') + 1);
+        
+
+        //check to see if upload parameter specified
+        if(($_FILES["image"]["error"]==UPLOAD_ERR_OK) && ($ext == "jpg") && ($_FILES["image"]["type"] == "image/jpeg") && ($_FILES["image"]["size"] < 70000000)){
+            //check to make sure file uploaded by upload process
+            if(is_uploaded_file($_FILES["image"]["tmp_name"])){
+                // capture filename and strip out any directory path info
+                $fn = basename($_FILES["image"]["name"]);
+                //Build now filename with safty measures in place
+                $copyfile = $safeDir."safe_prefix_secure_info".strip_tags($fn);
+                //copy file to safe directory
+                if(move_uploaded_file($_FILES["image"]["tmp_name"], $copyfile)){
+                    $message .= "<br>Successfully uploaded file $copyfile\n";
+                    $sql = "INSERT INTO ".$table."(".$field.") VALUES ('$copyfile')"; 
+               	$db->query($sql);
+}
+    $list = glob($safeDir . "*");
+}
+}
+}
 }
 
 $obj=new DbActions();
@@ -144,6 +173,11 @@ $params=array('skill'=>"yeeey");
 $where="skillsID=6";
 
 $obj->update($table,$params,$where);
+
+
+if(isset($_POST["insert"])) {
+    $obj->uploadPhoto("images","image_url");
+}
 
 /*$arr=array("skill"=>"djsdjhsdj");
 $obj->insert_record('skills',$arr);
@@ -169,3 +203,13 @@ foreach($rows as $row){
 
 }*/
 ?>
+
+<h3 align="center">Upload photo to MySQL</h3>  
+                <br />  
+                <form method="post" enctype="multipart/form-data">  
+                     <input type="file" name="image" id="image" />  
+                     <br>  
+                     <input type="submit" name="insert" id="insert" value="Insert"/>  
+                </form>  
+                <br>  
+                <br>  
