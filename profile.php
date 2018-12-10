@@ -30,19 +30,20 @@ include 'inc/profile-carousel.php';
 
 
 <!-- CONTENT EXCLUSIVE FOR LOGGED IN USERS -->
-<div class="container">
-  <div class="row">
+<div class="container profile-page">
+  <div class="row text-center">
     <!-- Content area -->
-    <div class="col-md-7">
+    <div class="col-md-12">
       <h3>Information</h3>
+      <button class="btn btn-secondary">Edit my Data</button>
       <table class="table table-sm table-profile">
         <tbody>
           <tr>
-            <th>Course:</th>
-            <td>FSWD 10</td>
+            <th class="w-50">Course:</th>
+            <td class="w-50">FSWD 10</td>
           </tr>
           <tr>
-            <th>Skills:</td>
+            <th>Skills:</th>
             <td>Baking, Eating, Gardening</td>
           </tr>
           <tr>
@@ -68,14 +69,35 @@ include 'inc/profile-carousel.php';
         </tbody>
       </table>     
     </div>
-
-    <!-- Sidebar -->
-    <div class="col-md-5 sidebar">
-       <h3>{Firstname}s Badges</h3>
-
-      
-    </div>    
   </div>
+
+  <!-- badges -->
+<h3 class="mt-5 mb-4">{Firstname}s Badges</h3>
+  <div class="row justify-content-center badges">
+    <div class="col-4 text-center">      
+      <img src="http://www.codefactory.academy/img/week1-golden-badge.png" alt="{blabla}">
+      <p>Week 1 <br>Golden Git, HTML5, CSS3</p>
+    </div>      
+    <div class="col-4 badges text-center">      
+      <img src="http://www.codefactory.academy/img/week1-golden-badge.png" alt="{blabla}">
+      <p>Week 1 <br>Golden Git, HTML5, CSS3</p>
+    </div>      
+    <div class="col-4 badges text-center">      
+      <img src="http://www.codefactory.academy/img/week1-golden-badge.png" alt="{blabla}">
+      <p>Week 1 <br>Golden Git, HTML5, CSS3</p>
+    </div>      
+    <div class="col-4 badges text-center">      
+      <img src="http://www.codefactory.academy/img/week1-golden-badge.png" alt="{blabla}">
+      <p>Week 1 <br>Golden Git, HTML5, CSS3</p>
+    </div>      
+    <div class="col-4 badges text-center">      
+      <img src="http://www.codefactory.academy/img/week1-golden-badge.png" alt="{blabla}">
+      <p>Week 1 <br>Golden Git, HTML5, CSS3</p>
+    </div>      
+    <div class="col-4 badges text-center">      
+      <img src="http://www.codefactory.academy/img/week1-golden-badge.png" alt="{blabla}">
+      <p>Week 1 <br>Golden Git, HTML5, CSS3</p>  
+    </div>    
 </div>
 
 <?php 

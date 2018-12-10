@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 10, 2018 at 11:54 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Dec 10, 2018 at 03:22 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -117,14 +117,8 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`image_id`, `image_url`, `fk_eventID`, `fk_storiesID`) VALUES
-(1, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/inc/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
-(2, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/inc/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
-(3, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/inc/img/safe_prefix_secure_infoex.jpg', NULL, NULL),
-(4, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/inc/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
-(5, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/assets/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
-(6, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/assets/img/safe_prefix_secure_infoex.jpg', NULL, NULL),
-(7, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/assets/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
-(8, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/assets/img/safe_prefix_secure_infodada.jpg', NULL, NULL);
+(9, 'serri.jpg', NULL, 1),
+(10, 'cat_lady.png', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -162,6 +156,23 @@ CREATE TABLE `skills` (
   `skill` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `skills`
+--
+
+INSERT INTO `skills` (`skillsID`, `skill`) VALUES
+(133, 'JavaScript'),
+(134, 'HTML'),
+(135, 'PHP'),
+(136, 'CSS'),
+(137, 'Angular'),
+(138, 'jQuery'),
+(139, 'Symfony'),
+(140, 'Ajax'),
+(141, 'Wordpress'),
+(142, 'mySQL'),
+(143, 'Bootstrap');
+
 -- --------------------------------------------------------
 
 --
@@ -172,8 +183,16 @@ CREATE TABLE `stories` (
   `storyID` int(11) NOT NULL,
   `fk_profileID` int(11) DEFAULT NULL,
   `story_content` text COLLATE utf8_unicode_ci,
-  `story_teaser` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `story_teaser` text COLLATE utf8_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `stories`
+--
+
+INSERT INTO `stories` (`storyID`, `fk_profileID`, `story_content`, `story_teaser`) VALUES
+(1, 9, 'Trainer at CodeFactory\r\n\r\nPerception about weekly projects and group projects: It is really interesting and challenging in the same time, and during the project week I learned a lot of things, how to work with the team, how to debug the code, how I can serve and problem.\r\n\r\nBiggest challenges: Symfony framework because it looks a bit complicated but I spent a lot of time to study it and now I like to use it to do my projects.\r\n\r\nJob search after the course: It was easy because the CodeFactory team asked me to be a trainer :P, just have confidence and take it seriously, and hard work makes the dream work.', '\"I studied computer engineering and I was a C++ and C# programming. I like to know how the webpage built and I was having a lot of questions about that, that\'s why I joined CodeFactory.\"'),
+(2, 8, 'Trainer at CodeFactory\r\n\r\nPerception about weekly projects and group projects: I loved the group projects, it gave me the opportunity to work in bigger teams and to see how it would really be working in a team using technologies. I was very lucky because within all projects, my teams had a lot of fun and communicated well with each other, which in all made it successful. The weekly CodeReviews were a different experience to that, I enjoyed the challenge and being left fully alone to find solutions to the weekly task.\r\n\r\nBiggest challenges: I would say staying motivated around the halfway point when everybody was starting to feel tired because of the intensity of the course. This was a slight dipping point, but I\'d say we overcame it soon enough.\r\n\r\nJob search after the course: I started working for CodeFactory almost immediately, so I did not really begin with a job search.', '\"I worked as a tour guide and wanted to leave tourism and start a new career path. I was curious to learn new languages and technologies. Programming united both the creative and the logical, that made it very appealing.\" Decided to take a Full-Stack Course at CodeFactory because \"it was hands-on and intense, a format that really worked for me. CodeFactory offered a programme that fully fitted my needs.\"');
 
 -- --------------------------------------------------------
 
@@ -198,12 +217,20 @@ CREATE TABLE `student_profile` (
   `first_name` varchar(55) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_name` varchar(55) COLLATE utf8_unicode_ci DEFAULT NULL,
   `jobs_status` enum('available','employed','','') COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
   `portfolio` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `phone_number` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fk_userID` int(11) DEFAULT NULL,
   `profile_picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `student_profile`
+--
+
+INSERT INTO `student_profile` (`profile_id`, `first_name`, `last_name`, `jobs_status`, `description`, `portfolio`, `phone_number`, `fk_userID`, `profile_picture`) VALUES
+(8, 'Theodora', 'Patkos', 'employed', 'Theodora Patkos, geboren und aufgewachsen in Südafrika, ist Assistant Trainer bei Codefactory. Nach 10 jähriger Berufstätigkeit im Tourismus als Reiseleiterin und im Front Office von Hotels in Wien, hat sich Theodora entschieden, beruflich neue Wege zu ge', 'https://blablal.at', '02 2343234', 9, '\\assets\\img\\cat_lady.png'),
+(9, 'Ghiath', 'Serri', 'employed', 'Geboren in Mai 1990. Nach erfolgreichem Abschluss von der Damascus Technische Institut der Computertechnik, hat Ghiath in Damascus, Syrien und in Wien als Computer Techniker gearbeitet. Ghiath wollte sein Wissen erweitern und hat sich für das Web Development entschieden und nahm an die Full Stack Web Development Ausbildung bei der CodeFactory teil. Zusätzlich hat Ghiath Erfahrung in C++ und C#. Er sieht das Programmieren wie ein Kunst, wo er sich ganz entfalten kann.', '###', '02 42343214', 10, 'assets\\img\\serri.jpg');
 
 -- --------------------------------------------------------
 
@@ -215,6 +242,14 @@ CREATE TABLE `student_skills` (
   `fk_student_profileID` int(11) NOT NULL,
   `fk_skillsID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `student_skills`
+--
+
+INSERT INTO `student_skills` (`fk_student_profileID`, `fk_skillsID`) VALUES
+(9, 142),
+(10, 143);
 
 -- --------------------------------------------------------
 
@@ -229,6 +264,14 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_role` enum('student','company','admin','super_admin') COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `user_role`) VALUES
+(9, 'theopatkos', 'theodora.patkos@codefactory.wien ', '123456', 'student'),
+(10, 'serri', 'serri@cf.live', '123456', 'student');
 
 --
 -- Indexes for dumped tables
@@ -374,7 +417,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -392,25 +435,25 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT for table `stories`
 --
 ALTER TABLE `stories`
-  MODIFY `storyID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `storyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `student_profile`
 --
 ALTER TABLE `student_profile`
-  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

@@ -469,6 +469,12 @@ a:hover {
 
 //*** Profile Page Styles ***//
 
+// centering Content headings
+.profile-page h3 {
+  text-align: center;
+}
+
+
 // Profile Image on top of slider  
 .profile-img {
   border-radius: 50%;
@@ -480,13 +486,15 @@ a:hover {
 
 // Style table for profile page
 .table-profile {
+  text-align: right;
   td  {
     border-top: 0;
-    padding-left: 3rem;
+    text-align: left;
+    padding-left: 2rem;    
   }
   th {
-    width: 25%;
     border-top: 0;
+    padding-right: 2rem;
     border-right: 1px solid #dee2e6;
   }
 }
