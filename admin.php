@@ -109,16 +109,22 @@ $rows=$obj->fetch_records("users");
 
 
 		<script>
+			let firstKey=true;
+			let savedList = '';
 			$(document).ready(function() {
 				$('#search-text').keyup(function() {
+					if (firstKey) {   // save original list
+								savedList = $('#selresult').html();
+								firstKey = false;
+								}
 					var txt = $(this).val();
 						if (txt == '')
 						{
-
+							$('#selresult').html(savedList);  // restore original list
 						}
 						else
 						{
-							console.log(txt);
+							// console.log(txt);
 							$('#selresult').html('Searching...');
 							$.ajax({
 								url:"fetch.php",
