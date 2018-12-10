@@ -465,3 +465,30 @@ a:hover {
   opacity: 1;
   filter: alpha(opacity=100);
 }
+
+
+//*** Profile Page Styles ***//
+
+// Profile Image on top of slider  
+.profile-img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  border: #fff;
+  border-style: solid;  
+}
+
+// Style table for profile page
+.table-profile {
+  td  {
+    border-top: 0;
+    padding-left: 3rem;
+  }
+  th {
+    width: 25%;
+    border-top: 0;
+    border-right: 1px solid #dee2e6;
+  }
+}
+
+

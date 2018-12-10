@@ -1,9 +1,10 @@
 <?php 
 include 'inc/header.php';
+include 'inc/profile-carousel.php';
 ?>
 
 <!-- LOGIN FORM FOR LOGGED OUT USERS -->
-<div class="container mt-5">
+<!-- <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-3">    
       <div class="user-login" *ngIf="!(authService.user | async)">
@@ -22,104 +23,59 @@ include 'inc/header.php';
     <button class="btn btn-outline-secondary" (click)="logout()" *ngIf="authService.user | async">
     Logout
     </button>
-  </div>
+  </div> -->
+
+
+
+
 
 <!-- CONTENT EXCLUSIVE FOR LOGGED IN USERS -->
-<div *ngIf="authService.user | async" >
-  <h3 class="title text-center p-3">{{ (authService.user | async)?.email }}, welcome to your page!</h3>
+<div class="container">
   <div class="row">
-    <div class="col-md-3 card">
-      <ul class="nav flex-column">
-        <h3 class="sideMenu p-3">Your material</h3>
-        <p class="font-weight-bold">JavaScript</p>
-
-        <li class="nav-item">
-            <a class="nav-link" href="https://eloquentjavascript.net/" target="_blank">Book Eloquent JavaScript</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://javascript.info/" target="_blank">Modern JavaScript Tutorial</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://developer.mozilla.org/bm/docs/Web/JavaScript" target="_blank">Web Technologies for Developers</a>
-          </li>
-
-        <p class="font-weight-bold">Angular</p>
-          <li class="nav-item">
-            <a class="nav-link" href="https://angular.io/tutorial" target="_blank">Angular Tutorial</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/angular/angular" target="_blank">GitHub Framework</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.ng-book.com/2/#contents" target="_blank">Ang Book</a>
-          </li>
-
-      <p class="font-weight-bold">PHP</p>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.siliconindia.com/online_course/php_course-id-6.html" target="_blank">Online PHP Training Content</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://phpsecurity.readthedocs.io/en/latest/Introduction.html" target="_blank">PHP Security</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://phptherightway.com/" target="_blank">PHP: The Right Way</a>
-          </li>
-        
-      </ul>
+    <!-- Content area -->
+    <div class="col-md-7">
+      <h3>Information</h3>
+      <table class="table table-sm table-profile">
+        <tbody>
+          <tr>
+            <th>Course:</th>
+            <td>FSWD 10</td>
+          </tr>
+          <tr>
+            <th>Skills:</td>
+            <td>Baking, Eating, Gardening</td>
+          </tr>
+          <tr>
+            <th>Job Status:</th>
+            <td>Green/Red</td>
+          </tr>
+          <tr>
+            <th>Portoflio:</th>
+            <td>SomeKindaUrl</td>
+          </tr>
+          <tr>
+            <th>Github Profile:</th>
+            <td>Green/Red</td>
+          </tr>   
+          <tr>
+            <th>eMail:</th>
+            <td>lala@lulu.com</td>
+          </tr> 
+          <tr>
+            <th>Phone:</th>
+            <td>+43 699 13532132</td>
+          </tr>                                      
+        </tbody>
+      </table>     
     </div>
-    
 
-    <div class="col-md-9 card">
-      <h3 class="title text-center p-3">Latest News</h3>
+    <!-- Sidebar -->
+    <div class="col-md-5 sidebar">
+       <h3>{Firstname}s Badges</h3>
 
-      <div class="row">
-        <div class="col-md-4 col-sm-12">
-          <figure>
-            <img class="img-fluid img-thumbnail" src="/../assets/img/kotlin.jpg">
-            <figcaption class="font-weight-bold"><a class="news" href="https://www.developer-tech.com/news/2018/oct/18/github-kotlin-fastest-growing-language/" target="_blank">GitHub: Kotlin is now the fastest growing language</a></figcaption>
-          </figure>
-        </div>
-
-        <div class="col-md-4 col-sm-12">
-          <figure>
-            <img class="img-fluid img-thumbnail" src="/../assets/img/angular-7.0.jpg">
-            <figcaption class="font-weight-bold"><a class="news" href="https://sdtimes.com/webdev/angular-7-0-0-released/" target="_blank">Angular 7.0 released</a></figcaption>
-          </figure>
-        </div>
-
-        <div class="col-md-4 col-sm-12">
-          <figure>
-            <img class="img-fluid img-thumbnail" src="/../assets/img/Software_Development.jpg">
-            <figcaption class="font-weight-bold"><a class="news" href="https://www.forbes.com/sites/forbestechcouncil/2018/10/05/15-predictions-for-the-next-big-thing-in-software-development/#39415350522f" target="_blank">15 Predictions For The Next Big Thing In Software Development</a></figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <h3 class="title text-center p-3">Your Badges</h3>
-
-      <div class="row p-3">
-        <div class="col-md-3">
-          <img class="img-fluid img-thumbnail" src="./assets/img/golden.jpg">
-        </div>
-        <div class="col-md-9">
-          <p class="font-weight-bold">Golder Badge: HTML5, CSS3, GitHub, Bootstrap</p>
-          <p>We state that you earned the Golden Badge thanks to your own achievements and effort, and therefore are ready to work with these technologies.</p>
-        </div>
-      </div>
-
-      <div class="row p-3">
-        <div class="col-md-3">
-          <img class="img-fluid img-thumbnail" src="/../assets/img/silver.jpg">
-        </div>
-        <div class="col-md-9">
-          <p class="font-weight-bold">Silver Badge: JavaScript, TypeScript, Angular 6, Documentation</p>
-          <p>We state that you earned the Silver Badge thanks to your own achievements and effort, and therefore are ready to work with these technologies.</p>
-        </div>
       
-      </div>
-    </div>
+    </div>    
   </div>
-</div>
 </div>
 
 <?php 

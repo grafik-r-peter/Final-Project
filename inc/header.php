@@ -14,5 +14,4 @@
 <?php 
 include "inc/topnav.php";
 include "inc/nav.php";
-include "inc/carousel.php";
 ?>

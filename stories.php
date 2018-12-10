@@ -1,5 +1,6 @@
 <?php 
 include 'inc/header.php';
+include "inc/carousel.php";
 ?>
 
 <div class="container mt-5">
