@@ -81,20 +81,20 @@ $rows=$obj->fetch_records("users");
   	<div class="row">
   		<div class="col-8">
 
-
+			<input class="form-control mt-3" type="text" name="search-text" id="search-text" placeholder="fast search">
 
 				<table class="table my-3 mx-1 vertical-align">
 					  <thead class="thead-dark">
 					    <tr>
 					      <th scope="col">Name</th>
-					      <th scope="col">User Role</th>
+					      <th scope="col">Email</th>
 					      <th scope="col">operation</th>
 					    </tr>
 					  </thead>
-					  <tbody class="table-striped">
-					    
-
-						 <?php foreach($rows as $row){
+					  <tbody class="table-striped" id="selresult"> <!-- target to ajax  -->
+					  
+					    	
+					 		<?php foreach($rows as $row){
 						 		echo "<tr>";              //loops to print the records
 								echo "<td>".$row['username']."</td>";
 								echo "<td>".$row['email']."</td>";
@@ -102,10 +102,44 @@ $rows=$obj->fetch_records("users");
 								echo "</tr>";
 							} ?>
 
+						
 					  </tbody>
 				</table>
-
 		</div>
+
+
+		<script>
+			$(document).ready(function() {
+				$('#search-text').keyup(function() {
+					var txt = $(this).val();
+						if (txt == '')
+						{
+
+						}
+						else
+						{
+							console.log(txt);
+							$('#selresult').html('Searching...');
+							$.ajax({
+								url:"fetch.php",
+								method:"post",
+								data:{search:txt},
+								dataType:"text",
+								success:function(data)
+							{
+
+							 		$('#selresult').html(data);
+
+							 	}
+							 });
+						}
+
+				});
+			});
+
+		</script>
+
+
 
 
   			<div class="col-4 my-3 mx-0 px-3">   <!-- User registration -->
