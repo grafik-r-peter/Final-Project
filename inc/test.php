@@ -69,7 +69,7 @@ echo "Fetch records: ";
 $rows=$obj->fetch_records("skills");
 
 
-foreach($rows as $row){//loops to print the records
+foreach($rows as $row){              //loops to print the records
 	echo $row['skillsID']."<br>";
 	echo $row['skill']."<br>";
 }

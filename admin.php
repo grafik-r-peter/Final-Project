@@ -1,5 +1,6 @@
 <?php 
 include 'inc/header.php';
+include 'inc/db_actions.php';
 ?>
 
 <link rel="stylesheet" href="./assets/css/form.css">
@@ -11,6 +12,17 @@ include 'inc/header.php';
 	}
 
 </style>
+
+
+
+<?php
+
+$rows=$obj->fetch_records("users");
+
+
+?>
+
+
 
 <div class="container-fluid">
 	
@@ -43,16 +55,16 @@ include 'inc/header.php';
 
   	<div class="modal fade" id="confirm" role="dialog">
             <div class="modal-dialog modal-sm h-100 d-flex flex-column justify-content-center my-0">
-              <div class="modal-content">
+              <div class="modal-content bg-dark text-white">
                 <div class="modal-header">
-                  <h4 class="modal-title">Heading</h4>
+                  <h4 class="modal-title">Are you sure?</h4>
                 </div>
                 <div class="modal-body">
                     Body text here
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default mx-auto">Delete</button>
-                    <button type="button" data-dismiss="modal" class="btn btn-default mx-auto">Cancel</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger mx-auto">Delete</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-primary mx-auto">Cancel</button>
                 </div>
               </div>
             </div>
@@ -65,9 +77,11 @@ include 'inc/header.php';
 	}
 
 </script>
-  	
+
   	<div class="row">
   		<div class="col-8">
+
+
 
 				<table class="table my-3 mx-1 vertical-align">
 					  <thead class="thead-dark">
@@ -78,11 +92,16 @@ include 'inc/header.php';
 					    </tr>
 					  </thead>
 					  <tbody class="table-striped">
-					    <tr>
-					      <td>George Bush</td>
-					      <td>student</td>
-					      <td><button type="button" class="btn btn-warning mx-1 btn-sm px-3">edit</button> <button type="button" class="btn btn-danger btn-sm" onclick="confirmation()">delete</button></td>
-					    </tr>
+					    
+
+						 <?php foreach($rows as $row){
+						 		echo "<tr>";              //loops to print the records
+								echo "<td>".$row['username']."</td>";
+								echo "<td>".$row['email']."</td>";
+								echo '<td><button type="button" class="btn btn-warning mx-1 btn-sm px-3">edit</button> <button type="button" class="btn btn-danger btn-sm" onclick="confirmation()">delete</button> </td>';
+								echo "</tr>";
+							} ?>
+
 					  </tbody>
 				</table>
 

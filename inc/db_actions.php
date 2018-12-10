@@ -4,7 +4,6 @@ require_once 'database.php';
 
 class DbActions extends Database{
 
-
 //insert record in one table
 public function insert_record($table,$fields){
 
@@ -22,7 +21,7 @@ public function fetch_records($table){
 	
 	global $db;
 
-	$sql="SELECT * FROM ".$table;
+	$sql="SELECT * FROM ".$table; 
 	echo $sql;
 	$arr=array();
 	$query=$db->query($sql);
@@ -151,12 +150,66 @@ $db->query($sql);
 }
 }
 }
-
-//update many tables
-
 }
 
 $obj=new DbActions();
 
 
 
+$tables=array("users", "student_profile");
+$rows="*";
+$join=array("users.user_id=student_profile.fk_userID");
+
+$rows=$obj->join_tables($tables,$rows,$join);
+
+foreach($rows as $row){
+	echo $row['last_name']."<br>";
+	echo $row['first_name']."<br>";
+	echo $row['username']."<br>";
+}
+
+$table="skills";
+$params=array('skill'=>"yeeey");
+$where="skillsID=6";
+
+$obj->update($table,$params,$where);
+
+
+if(isset($_POST["insert"])) {
+    $obj->uploadPhoto("images","image_url");
+}
+
+/*$arr=array("skill"=>"djsdjhsdj");
+$obj->insert_record('skills',$arr);
+
+$table="skills";
+$where="skillsID=5";
+
+$obj->delete($table,$where);
+
+
+$rows=$obj->fetch_records("skills");
+
+
+foreach($rows as $row){
+	echo $row['skillsID']."<br>";
+	echo $row['skill']."<br>";
+}
+
+$where=array("skill"=>"fafafaf");
+$rows=$obj->select_record("skills",$where);
+foreach($rows as $row){
+	echo $row['skillsID']."<br>";
+
+}*/
+?>
+
+<h3 align="center">Upload photo to MySQL</h3>  
+                <br />  
+                <form method="post" enctype="multipart/form-data">  
+                     <input type="file" name="image" id="image" />  
+                     <br>  
+                     <input type="submit" name="insert" id="insert" value="Insert"/>  
+                </form>  
+                <br>  
+                <br>  
