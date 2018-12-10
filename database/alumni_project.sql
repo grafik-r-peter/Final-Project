@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2018 at 10:13 AM
+-- Generation Time: Dec 10, 2018 at 11:54 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -92,10 +92,11 @@ CREATE TABLE `enrollment_table` (
 
 CREATE TABLE `events` (
   `eventID` int(11) NOT NULL,
-  `event_name` int(11) DEFAULT NULL,
+  `event_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
   `cost` float DEFAULT NULL,
-  `fk_locationID` int(11) DEFAULT NULL
+  `fk_locationID` int(11) DEFAULT NULL,
+  `event_category` enum('meetup','party') COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -110,6 +111,20 @@ CREATE TABLE `images` (
   `fk_eventID` int(11) DEFAULT NULL,
   `fk_storiesID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`image_id`, `image_url`, `fk_eventID`, `fk_storiesID`) VALUES
+(1, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/inc/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
+(2, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/inc/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
+(3, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/inc/img/safe_prefix_secure_infoex.jpg', NULL, NULL),
+(4, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/inc/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
+(5, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/assets/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
+(6, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/assets/img/safe_prefix_secure_infoex.jpg', NULL, NULL),
+(7, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/assets/img/safe_prefix_secure_infodada.jpg', NULL, NULL),
+(8, '/Applications/XAMPP/xamppfiles/htdocs/Final-Project/assets/img/safe_prefix_secure_infodada.jpg', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -186,7 +201,6 @@ CREATE TABLE `student_profile` (
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `portfolio` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `phone_number` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fk_userID` int(11) DEFAULT NULL,
   `profile_picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -307,7 +321,7 @@ ALTER TABLE `students_results`
 --
 ALTER TABLE `student_profile`
   ADD PRIMARY KEY (`profile_id`),
-  ADD KEY `fk_userID` (`fk_userID`);
+  ADD KEY `student_profile_ibfk_1` (`fk_userID`);
 
 --
 -- Indexes for table `student_skills`
@@ -360,7 +374,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -378,7 +392,7 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `skillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT for table `stories`
@@ -390,13 +404,13 @@ ALTER TABLE `stories`
 -- AUTO_INCREMENT for table `student_profile`
 --
 ALTER TABLE `student_profile`
-  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -452,8 +466,7 @@ ALTER TABLE `students_results`
 -- Constraints for table `student_profile`
 --
 ALTER TABLE `student_profile`
-  ADD CONSTRAINT `student_profile_ibfk_1` FOREIGN KEY (`fk_userID`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `student_profile_ibfk_2` FOREIGN KEY (`profile_id`) REFERENCES `enrollment_table` (`fk_student_profileID`);
+  ADD CONSTRAINT `student_profile_ibfk_1` FOREIGN KEY (`fk_userID`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `student_skills`
