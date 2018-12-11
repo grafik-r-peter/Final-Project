@@ -1,6 +1,6 @@
 <?php 
 include 'inc/header.php';
-include 'inc/db_actions.php';
+// include 'inc/db_actions.php';
 ?>
 
 <link rel="stylesheet" href="./assets/css/form.css">
