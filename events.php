@@ -1,6 +1,6 @@
 <?php   
   include 'inc/header.php';
-  include 'inc/db_actions.php';
+  /*include 'inc/db_actions.php';*/
 
 
   $tables=array("images", "events", "location");
