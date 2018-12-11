@@ -67,7 +67,7 @@ include 'inc/profile-carousel.php';
             <td>+43 699 13532132</td>
           </tr>                                      
         </tbody>
-      </table>     
+      </table>
     </div>
   </div>
 
