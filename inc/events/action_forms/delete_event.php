@@ -3,22 +3,29 @@
  
 include '../../db_actions.php';
 
+ if($_GET['eventID']) {
 
-    //--------------------------------------------------
-if($_GET['eventID']) {
     $eventID = $_GET['eventID'];
-    $where=array("eventID"=>$eventID );
-    $data=$obj->select_record("events",$where);
-//-------------------------------------------------
 
-   
-    /*print_r($row);*/
-    /*$sql = "SELECT * FROM concerts WHERE Concert_id  = {$Concert_id}";
+
+    $sql = "SELECT * FROM events WHERE  eventID = {$eventID}";
+    $connect = new mysqli("127.0.0.1", "root", "", "alumni_project");
     $result = $connect->query($sql);
     $data = $result->fetch_assoc();
-    $connect->close();*/
-echo $eventID;
-print_r($data);
+//--------------------------------------------------------------------    
+    
+    $sql2 = "SELECT * FROM images WHERE  fk_eventID = {$eventID}";
+    $result2 = $connect->query($sql2);
+    $data2 = $result2->fetch_assoc();
+    
+//-------------------------------------------------
+   $fk_locationID=$_GET['eventID']; 
+   $sql3 = "SELECT * FROM location WHERE  locationID  = {$fk_locationID}";
+    $result3 = $connect->query($sql3);
+    $data3 = $result3->fetch_assoc();
+  
+//-----------------------------------------------------
+  
 ?>
 <!doctype html>
 <html lang="en">
@@ -90,27 +97,16 @@ print_r($data);
 
 <h3 class="text-danger text-center mb-4">Do you really want to delete this data?</h3>
 
-<form action="http://localhost/phpExersises/Final-Project/inc/events/actions/a_delete.php" method="post">
+<form action="../actions/a_delete.php" method="post">
        
                 
                 <input type="hidden"
               
-                name="id"
+                name="eventID"
             
                 value="<?php echo $data['eventID'] ?>"
                 >
-          
 
-      
-                
-                <input type="hidden"
-         
-                name="locid"
-          
-                value="<?php echo $data['fk_locationID'] ?>"
-                >
-       
-            
               <input type="submit" name="btn" value="Yes, delete it!">
 
               <a href="../../../events.php">
@@ -127,6 +123,8 @@ print_r($data);
 </html>
 
  
-<?php } ?>
+<?php }else{
+  echo "faild";
+} ?>
 
 

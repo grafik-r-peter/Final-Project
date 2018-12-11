@@ -4,18 +4,32 @@ include '../../db_actions.php';
 
 
     if($_POST){
+    $eventID=$_POST["eventID"]; 
+    echo $eventID;
 
-    $id=$_POST["id"];
-    $locid=$_POST["locid"];
-    //echo $id;
-    $where="eventID = ".$id ;
-    //$where2="locationID = ".$locid;
-   if($obj->delete('events','eventID=2')){
-    echo "success";
-   }
+//---------------------------------------------
+    $tables=array("images", "events", "location");
+    $rows="*";
+    $join=array("events.eventID = images.fk_eventID" ,"location.locationID = events.fk_locationID");
+    $obj->join_tables($tables,$rows,$join);
+//------------------------------------------------
+
+    /*$table="events";
+    $where="eventID=".$eventID;
+    $obj->delete($table,$where);*/
+//------------------------------------------------
+    /*$table="images";
+    $where="fk_eventID = ".$eventID;
+    $obj->delete($table,$where);*/
+//------------------------------------------------
+    $table="location";
+    $locationID=$_POST['eventID'];
+    $where="locationID = ".$locationID;
+    $obj->delete($table,$where);
     
-    //$obj->delete('location',"locationID = 2");
-    
+//------------------------------------------------  
+
+   
     }
     
    
@@ -34,7 +48,7 @@ include '../../db_actions.php';
 
         echo "<h1 class='text-danger text-center'>Successfully deleted!!</h1>";
         echo "<div class=' text-center container'>";
-        echo "<a href='../index.php'><button type='button' class='btn btn-warning'>Back</button></a>";
+        echo "<a href='../../../events.php'><button type='button' class='btn btn-warning'>Back</button></a>";
         echo'</div></body>
 
             </html>';

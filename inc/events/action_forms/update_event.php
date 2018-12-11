@@ -178,7 +178,7 @@ if($_GET['eventID']) {
               <button class="btn btn-danger" value="">
                 Save Changes
               </button>
-              <a href="events.php"><button type="button" class=" btn btn-danger">Back</button>
+              <a href="../../../events.php"><button type="button" class=" btn btn-danger">Back</button>
             </form> 
 
  </div>

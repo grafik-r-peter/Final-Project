@@ -53,6 +53,13 @@
 </div>
 </div>
 
+<button type="button"
+        class="btn btn-outline-secondary
+        onclick="confirmation()"">
+          delete
+</button>
+
+
 <div class="container mt-5">
   <div class="col-sm-8">
       <div class="containerFilter clearfix margin-b-80">
@@ -102,6 +109,21 @@
             Location:
               '.$row['address'].', '.$row['city'].', '.$row['country'].'
           </div>
+          <div class="d-flex justify-content-start mb-4">
+            <a href="inc/events/action_forms/update_event.php?eventID='.$row['eventID'].'"
+            style="text-decoration:none">
+              <button type="button" class="btn btn-outline-secondary">
+                Edit
+              </button>
+            </a>
+            <a href="inc/events/action_forms/delete_event.php?eventID='.$row["eventID"].'">
+              <button type="button"
+              class="btn btn-outline-secondary
+              onclick="confirmation()"">
+                delete
+              </button>
+          </a>
+</div>
         </div>
           '
         ;}

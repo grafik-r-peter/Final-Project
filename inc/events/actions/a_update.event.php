@@ -3,7 +3,7 @@
 include '../../db_actions.php';
 if($_POST) {
 
-    //-------------------------------------------------
+//-------------------------------------------------
   $tables=array("images", "events", "location");
   $rows="*";
   $join=array("events.eventID = images.fk_eventID" ,"location.locationID = events.fk_locationID");
@@ -20,8 +20,6 @@ if($_POST) {
   $image_url =$_POST['image_url'];
   
 //--------------------------------------------------
-
-  echo "Update table: ";
 $eventID=$_POST["eventID"];
 $table="events";
 $params=array("event_name"=>"$event_name", "start_date"=>"$start_date", "cost"=>"$cost");
@@ -30,20 +28,15 @@ $where="eventID = ".$eventID;
 $obj->update($table,$params,$where);
 //--------------------------------------------------
 
-  echo "Update table: ";
-
-$table="images";
+$table="location";
 $params=array("address"=>"$address", "city"=>"$city", "country"=>"$country");
-$where="fk_eventID = ".$eventID;
-
+$fk_locationID=$_POST["eventID"];
+$where="locationID="."$fk_locationID";
 $obj->update($table,$params,$where);
 //--------------------------------------------------
-
-  echo "Update table: ";
-$fk_locationID=$_POST['eventID'];
-$table="location";
+$table="images";
 $params=array("image_url"=>"$image_url");
-$where="locationID = ".$fk_locationID;
+$where="fk_eventID= ".$eventID ;
 
 $obj->update($table,$params,$where);
 //--------------------------------------------------

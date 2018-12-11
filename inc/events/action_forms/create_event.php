@@ -130,6 +130,25 @@
                 placeholder="Enter Country"
                 >
               </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Event Category :</label>
+
+                <select class="custom-select mb-4" name="event_category">
+                <?php 
+                $tables=array("images", "events", "location");
+                $rows="*";
+                $join=array("events.eventID = images.fk_eventID" ,"location.locationID = events.fk_locationID");
+                $datas=$obj->join_tables($tables,$rows,$join);
+
+                foreach($datas as $data){ 
+                  echo "<option value='".$data['event_category']."'>".$data['event_category']."</option>";
+              }
+                ?>
+              </select>
+            </div>
+
+
               <div class="form-group">
                 <label for="exampleInputEmail1">Location:</label>
 
@@ -176,7 +195,7 @@
                 create
               </button>
 
-              <a href="events.php">
+              <a href="../../../events.php">
               <button type="button" class=" btn btn-danger">
                 Back
               </button>
