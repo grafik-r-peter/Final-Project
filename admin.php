@@ -53,7 +53,7 @@ $rows=$obj->fetch_records("users");
   <div class="tab-pane container-fluid active" id="first">
 
 
-  	<div class="modal fade" id="confirm" role="dialog">
+<!--   	<div class="modal fade" id="confirm" role="dialog">
             <div class="modal-dialog modal-sm h-100 d-flex flex-column justify-content-center my-0">
               <div class="modal-content bg-dark text-white">
                 <div class="modal-header">
@@ -69,14 +69,14 @@ $rows=$obj->fetch_records("users");
               </div>
             </div>
         </div>
+ -->
+<!-- <script>
 
-<script>
-
-	function confirmation(){
+	function confirmation(a){
 		$('#confirm').modal('show');
 	}
 
-</script>
+</script> -->
 
   	<div class="row">
   		<div class="col-8">
@@ -98,7 +98,7 @@ $rows=$obj->fetch_records("users");
 						 		echo "<tr>";              //loops to print the records
 								echo "<td>".$row['username']."</td>";
 								echo "<td>".$row['email']."</td>";
-								echo '<td><button type="button" class="btn btn-warning mx-1 btn-sm px-3">edit</button> <button type="button" class="btn btn-danger btn-sm" onclick="confirmation()">delete</button> </td>';
+								echo "<td><a href='edit.php?id=".$row['user_id']."' role='button' class='btn btn-warning mx-1 btn-sm px-3'>Edit</a> <button type='button' class='btn btn-danger btn-sm deletebutton' id='".$row['user_id']."'>delete</button> </td>";
 								echo "</tr>";
 							} ?>
 
@@ -108,7 +108,7 @@ $rows=$obj->fetch_records("users");
 		</div>
 
 
-		<script>
+		<script>  //AJAX search
 			let firstKey=true;
 			let savedList = '';
 			$(document).ready(function() {
@@ -124,7 +124,7 @@ $rows=$obj->fetch_records("users");
 						}
 						else
 						{
-							// console.log(txt);
+							console.log(txt);
 							$('#selresult').html('Searching...');
 							$.ajax({
 								url:"fetch.php",
@@ -133,7 +133,6 @@ $rows=$obj->fetch_records("users");
 								dataType:"text",
 								success:function(data)
 							{
-
 							 		$('#selresult').html(data);
 
 							 	}
@@ -144,6 +143,33 @@ $rows=$obj->fetch_records("users");
 			});
 
 		</script>
+
+
+		<script>  //AJAX delete
+			let deleteId;
+			$(document).ready(function() {
+				$('.deletebutton').click(function() {
+					
+							deleteId = ($(this).attr('id'));
+							console.log('calling ajax delete with ', deleteId)	
+							$.ajax({
+							url:"ajaxdelete.php",
+							method:"post",
+							data:{targetId:deleteId},
+							dataType:"text",
+							success:function(newset)
+							 {
+							  		$('#selresult').html(newset);
+
+							  	}
+						  });
+						
+				});
+			});
+
+		</script>
+
+
 
 
 

@@ -5,9 +5,18 @@
 		$password = "";
 		$dbname = "alumni_project";
 
+		$id = $_POST["targetId"];
+
 		$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-		$sql = "SELECT username, email, user_id FROM users WHERE username LIKE '%".$_POST["search"]."%'";
+
+		$sql = "DELETE FROM users WHERE user_id = {$id}";
+
+		mysqli_query($conn, $sql);
+
+
+
+		$sql = "SELECT username, email, user_id FROM users";
 		$result = mysqli_query($conn, $sql);
 
 		$output='';
@@ -28,6 +37,11 @@
 		{
 			echo 'No data found';
 		}
+		
+
+
+
+
 		
 		mysqli_close($conn);
 ?>
