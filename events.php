@@ -9,56 +9,6 @@
 
   $rows=$obj->join_tables($tables,$rows,$join);
 ?>
-<link rel="stylesheet" href="./assets/css/form.css">
-
-<style>
-
-  div {
-    border: 1px solid red;
-  }
-
-</style>
-
-   
-<!-- <div class="dropdown-menu" aria-labelledby="dropdown04">
-  <a class="dropdown-item" href="restaurant_create.php">add new restaurant</a>
-  <a class="dropdown-item" href="concert_create.php">add new concert</a>
-  <a class="dropdown-item" href="place_create.php">add new place</a>
-</div> -->
-<script>
-
-  function confirmation(){
-    $('#confirm').modal('show');
-  }
-
-</script>
-<div class="tab-content">
-  <div class="tab-pane container-fluid active" id="first">
-<div class="modal fade" id="confirm" role="dialog">
-  <div class="modal-dialog modal-sm h-100 d-flex flex-column justify-content-center my-0">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header">
-        <h4 class="modal-title">Are you sure?</h4>
-      </div>
-      <div class="modal-body">
-          Body text here
-      </div>
-      <div class="modal-footer">
-          <button type="button" data-dismiss="modal" class="btn btn-danger mx-auto">Delete</button>
-          <button type="button" data-dismiss="modal" class="btn btn-primary mx-auto">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-
-<button type="button"
-        class="btn btn-outline-secondary
-        onclick="confirmation()"">
-          delete
-</button>
-
 
 <div class="container mt-5">
 <div class="col-sm-8">
@@ -112,8 +62,7 @@
             </a>
             <a href="inc/events/action_forms/delete_event.php?eventID='.$row["eventID"].'">
               <button type="button"
-              class="btn btn-outline-secondary
-              onclick="confirmation()"">
+              class="btn btn-outline-secondary">
                 delete
               </button>
             </a>
