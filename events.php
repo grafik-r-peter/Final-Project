@@ -87,7 +87,7 @@
               <img class="card-img-top
               img-responsive
               img"
-              src="'.$row['image_url'].'" 
+              src="assets/img/'.$row['image_url'].'" 
               alt="Card image cap">
           
             <div class="card-body overlay">
