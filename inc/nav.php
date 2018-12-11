@@ -1,6 +1,10 @@
-
+<?php 
+ob_start();
+session_start();
+include "db_actions.php";
+ ?>
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-  <a class="navbar-brand"  routerLink = "/"><img src="./assets/img/alumnilogo.png" alt="Alumni of Code Factory Logo"></a>
+  <a class="navbar-brand"><img src="./assets/img/alumnilogo.png" alt="Alumni of Code Factory Logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -8,31 +12,73 @@
   <div class="collapse navbar-collapse" id="navbarsExample04">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink = "/" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink = "stories" routerLinkActive="nav-active">Stories</a>
+        <a class="nav-link">Stories</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink = "directory" routerLinkActive="nav-active">Directory</a>
+        <a class="nav-link">Directory</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink = "career" routerLinkActive="nav-active">Careers</a>
+        <a class="nav-link">Careers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink = "events" routerLinkActive="nav-active">Events</a>
+        <a class="nav-link">Events</a>
       </li>
     </ul>
+    <?php if(isset($_SESSION['student'])!=""){  ?>
+    <div>
+        <span  class="user-welcome mr-3">
+  
+          <?php  
+          $where=array("fk_userID"=>$_SESSION['student']);
+          $rows=$obj->select_record("student_profile",$where);
 
-    <div *ngIf="authService.user | async; else loggedOut">
-        <span  class="user-welcome mr-3" *ngIf="authService.user | async">
-          Logged in as {{ (authService.user | async)?.email }} | <a routerLink = "intranet">Intranet</a>
+          foreach ($rows as $row) {
+            echo "Welcome ".$row["first_name"]."!<br>";
+          }
+
+          echo "userID is:".$_SESSION['student'];?> | <a>Login</a>
         </span>
     </div>
-    <ng-template #loggedOut>
-    <a routerLink = "intranet">
-      <button type="button" class="btn">Intranet</button>
+    <?php }elseif (isset($_SESSION['company'])!=""){?>
+    <div>
+        <span  class="user-welcome mr-3">
+  
+          <?php  
+          $where=array("fk_userID"=>$_SESSION['company']);
+          $rows=$obj->select_record("companies",$where);
+
+          foreach ($rows as $row) {
+            echo "Welcome ".$row["company_name"]."!<br>";
+          }
+
+          echo "userID is:".$_SESSION['company'];?> | <a>Login</a>
+        </span>
+    </div>
+    <?php }elseif (isset($_SESSION['admin'])!=""){?>
+    <div>
+        <span  class="user-welcome mr-3">
+  
+          <?php  
+  
+          echo "Welcome Admin!"?> | <a>Login</a>
+        </span>
+    </div>
+    <?php }elseif (isset($_SESSION['admin'])!="")?>
+    <?php if(!isset($_SESSION['student']) && !isset($_SESSION['company']) && !isset($_SESSION['admin'])){//fix this shit?>
+      <a href="inc/login/login.php">
+        <button type="button" class="btn">Login</button>
+      </a>
+  <?php } ?>
+
+  <?php if(isset($_SESSION['student'])!="" || isset($_SESSION['company'])!="" || isset($_SESSION['admin'])!="" || isset($_SESSION['admin'])!=""){  ?>
+    <a href="./inc/login/logout.php?logout">
+      <button type="button" class="btn btn-primary">Logout</button>
     </a>
-    </ng-template>
+   <?php }?>
+
+   
 </div>
 </nav>
