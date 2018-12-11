@@ -107,7 +107,10 @@ include '../../db_actions.php';
                 value="<?php echo $data['eventID'] ?>"
                 >
 
-              <input type="submit" name="btn" value="Yes, delete it!">
+              
+              <button type="submit" name="btn" class=" btn btn-danger">
+                Yes, delete it!
+              </button>
 
               <a href="../../../events.php">
               <button type="button" class=" btn btn-danger">
