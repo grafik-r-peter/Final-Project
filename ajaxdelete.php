@@ -1,5 +1,5 @@
 <?php
-
+ 
 		$servername = "localhost";
 		$username = "root";
 		$password = "";
@@ -38,10 +38,6 @@
 			echo 'No data found';
 		}
 		
-
-
-
-
 		
 		mysqli_close($conn);
 ?>
