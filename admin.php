@@ -251,7 +251,7 @@ function listingBadges() {
   		<div class="col-7">
 	  	
 		 <?php listingBadges(); ?>
-
+ 
 
 		</div>
 		
