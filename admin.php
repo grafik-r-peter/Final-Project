@@ -138,8 +138,12 @@ function listingBadges() {
 					<div class="form-group">
 					    <label for="exampleSelect1">Example select</label>
 					    <select class="form-control" size="20" id="selresult2">
-				                $norepeat = '';
-					 		 <?php foreach($rows as $row){
+					    	
+					 		 <?php 
+							$norepeat = ''; 
+
+
+					 		 foreach($rows as $row){
 					 			if ($norepeat != $row[0]) {
 					 			echo "<option value='".$row[0]."'>".$row[1]."  ".$row[2]."</option>";
 					 			$norepeat = $row[0]; }
@@ -164,26 +168,33 @@ function listingBadges() {
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#first">User management</a>
   </li>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#company">Company management</a>
+  </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#badges">Badges</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#third">Third</a>
+    <a class="nav-link" data-toggle="tab" href="#courses">Courses</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#events">Events</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#fourth">Fourth</a>
+    <a class="nav-link" data-toggle="tab" href="#skills">Skills</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#fifth">Fifth</a>
+    <a class="nav-link" data-toggle="tab" href="#careers">Careers</a>
   </li>
-    <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#sixth">Sixth</a>
-  </li>
+
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane container-fluid active" id="first">
+
+  	<a href="./inc/login/register.php" class="btn btn-dark">Add User</a>
 
 
 
@@ -290,10 +301,30 @@ function listingBadges() {
 	   </div>
 
 	  </div>
-  <div class="tab-pane container fade" id="third">ccccccccccc</div>
-  <div class="tab-pane container fade" id="fourth">dddddddddddd</div>
-  <div class="tab-pane container fade" id="fifth">eeeeeeeee</div>
-  <div class="tab-pane container fade" id="sixth">fffffffffff</div>
+  <div class="tab-pane container fade" id="company">
+  	 <a href="./inc/companies/action_forms/create_companies.php" class="btn btn-dark">Add Company</a>
+
+  	<?php include "./inc/companies/company_list.php" ?>
+  </div>
+  <div class="tab-pane container fade" id="courses">
+  	<a href="./inc/courses/action_forms/create_course.php" class="btn btn-dark">Add Course</a>
+  	<?php include "./inc/courses/list_course.php" ?>
+  </div>
+  <div class="tab-pane container fade" id="events">
+  	<a href="./inc/events/action_forms/create_event.php" class="btn btn-dark">Add Event</a>
+  	<?php include "./inc/events/list_events.php" ?>
+  </div>
+  <div class="tab-pane container fade" id="skills">
+  	 <a href="./inc/skills/action_forms/create_skill.php" class="btn btn-dark">Add Skills</a>
+  	 <?php include "./inc/skills/list_skills.php" ?>
+
+  </div>
+ 
+  <div class="tab-pane container fade" id="careers">
+  	<a href="./inc/career/action_forms/create_career.php" class="btn btn-dark">Add Career</a>
+  	<?php include "./inc/careers/careers_list.php" ?>
+  	
+  </div>
 </div>
 
 

@@ -12,20 +12,25 @@ include "db_actions.php";
   <div class="collapse navbar-collapse" id="navbarsExample04">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="./index.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">Stories</a>
+        <a class="nav-link" href="./stories.php">Stories</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">Directory</a>
+        <a class="nav-link" href="./directory.php">Directory</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">Careers</a>
+        <a class="nav-link" href="./career.php">Careers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">Events</a>
+        <a class="nav-link" href="./events.php">Events</a>
       </li>
+      <?php if(isset($_SESSION['student'])!=""){  ?>
+      <li class="nav-item">
+        <a class="nav-link" href="./profile.php">Profile</a>
+      </li>
+    <?php }?>
     </ul>
     <?php if(isset($_SESSION['student'])!=""){  ?>
     <div>

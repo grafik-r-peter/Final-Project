@@ -4,15 +4,16 @@ require_once 'database.php';
 
 class DbActions extends Database{
 
+
 //insert record in one table
 public function insert_record($table,$fields){
 
 	global $db;
 
 	$sql="INSERT INTO ".$table."(".implode(",", array_keys($fields)).") VALUES('".implode("','", array_values($fields))."')";
-	echo $sql;
+	
 
-	$db->query($sql);
+	return $db->query($sql);
 
 }
 
@@ -21,8 +22,10 @@ public function fetch_records($table){
 	
 	global $db;
 
-	$sql="SELECT * FROM ".$table; 
-	echo $sql;
+	$arr=array();
+
+	$sql="SELECT * FROM ".$table;
+	
 	$arr=array();
 	$query=$db->query($sql);
 	while($row=mysqli_fetch_assoc($query)){
@@ -37,6 +40,7 @@ public function fetch_records($table){
 public function select_record($table,$where){
 	global $db;
 	$condition='';
+	$arr=array();
 	foreach($where as $key=>$value){
 		$condition .= $key."='".$value."' AND";
 	}
@@ -76,7 +80,7 @@ function join_tables($tables, $rows = '*', $join = null, $where = null, $order =
 		$sql .= ' ORDER BY '.$order;
 	}
 		        
-	echo $sql."<br>";
+	
 	$q=$db->query($sql);
 	while($row=mysqli_fetch_assoc($q)){
 		$arr[]=$row;
@@ -99,7 +103,7 @@ public function update($table,$params=array(),$where){
 	}
 			// Create the query
 	$sql='UPDATE '.$table.' SET '.implode(',',$args).' WHERE '.$where;
-	echo $sql;
+
 	$db->query($sql);
 
 }
@@ -133,24 +137,63 @@ $db->query($sql);
         
 
         //check to see if upload parameter specified
-        if(($_FILES["image"]["error"]==UPLOAD_ERR_OK) && ($ext == "jpg") && ($_FILES["image"]["type"] == "image/jpeg") && ($_FILES["image"]["size"] < 70000000)){
+        if(($_FILES["image"]["error"]==UPLOAD_ERR_OK) && ($ext == "png") && ($_FILES["image"]["type"] == "image/png") && ($_FILES["image"]["size"] < 70000000)){
             //check to make sure file uploaded by upload process
             if(is_uploaded_file($_FILES["image"]["tmp_name"])){
                 // capture filename and strip out any directory path info
                 $fn = basename($_FILES["image"]["name"]);
                 //Build now filename with safty measures in place
                 $copyfile = $safeDir."safe_prefix_secure_info".strip_tags($fn);
+                $path="assets".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."safe_prefix_secure_info".strip_tags($fn);
                 //copy file to safe directory
                 if(move_uploaded_file($_FILES["image"]["tmp_name"], $copyfile)){
                     $message .= "<br>Successfully uploaded file $copyfile\n";
-                    $sql = "INSERT INTO ".$table."(".$field.") VALUES ('$copyfile')"; 
+                    $sql = "INSERT INTO ".$table."(".$field.") VALUES ('$path')";
+                   
                	$db->query($sql);
 }
     $list = glob($safeDir . "*");
 }
 }
 }
+
+
+
+//update photo
+    public function updatePhoto($table,$row,$where=null){
+    	global $db;
+        $message="";
+        $upOne = realpath(__DIR__ . '/..');
+        $safeDir = $upOne.DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR;
+        $filename = basename($_FILES['image']['name']);
+        $ext = substr($filename, strrpos($filename, '.') + 1);
+        
+
+        //check to see if upload parameter specified
+        if(($_FILES["image"]["error"]==UPLOAD_ERR_OK) && ($ext == "png") && ($_FILES["image"]["type"] == "image/png") && ($_FILES["image"]["size"] < 70000000)){
+            //check to make sure file uploaded by upload process
+            if(is_uploaded_file($_FILES["image"]["tmp_name"])){
+                // capture filename and strip out any directory path info
+                $fn = basename($_FILES["image"]["name"]);
+                //Build now filename with safty measures in place
+                $copyfile = $safeDir."safe_prefix_secure_info".strip_tags($fn);
+                $path="assets".DIRECTORY_SEPARATOR."img".DIRECTORY_SEPARATOR."safe_prefix_secure_info".strip_tags($fn);
+                //copy file to safe directory
+                if(move_uploaded_file($_FILES["image"]["tmp_name"], $copyfile)){
+                    $message .= "<br>Successfully uploaded file $copyfile\n";
+                 	// Create the query
+	$sql='UPDATE '.$table.' SET '.$row.'="'.$path.'" WHERE '.$where;
+	
+               	$db->query($sql);
+}
+    $list = glob($safeDir . "*");
+}
+}
+}
+
 }
 
 $obj=new DbActions();
+
+
 

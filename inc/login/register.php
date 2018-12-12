@@ -4,13 +4,13 @@ ob_start();
 session_start(); // start a new session or continues the previous
 
 include '../db_actions.php';
+include "../inc/header.php";
 
 $passError ="";
 $emailError ="";
 $nameError ="";
 $email="";
 $name="";
-$role="";
 
 if(isset($_SESSION['student'])!="" || isset($_SESSION['company'])!="" || isset($_SESSION['admin'])!="" || isset($_SESSION['admin'])!=""){
  header("Location: ../../index.php"); // redirects to home.php
@@ -35,7 +35,13 @@ if ( isset($_POST['btn-signup']) ) {
  $pass = strip_tags($pass);
  $pass = htmlspecialchars($pass);
 
- $role=$_POST['role'];
+ $role="student";
+  $fname = $_POST['f_name'];
+  $lname = $_POST['l_name'];
+  $description = $_POST['description']; 
+  $phone = $_POST['phone'];
+  $portfolio = $_POST['portfolio'];
+  $job_status = $_POST['job_status'];
 
  // basic name validation
  if (empty($name)) {
@@ -82,6 +88,8 @@ $password = hash('sha256', $pass);
  if( !$error ) {
   $arr=array("username"=>$name,"email"=>$email,"password"=>$password,"user_role"=>$role);
   $res=$obj->insert_record('users',$arr);
+  $sql="INSERT INTO student_profile(first_name,last_name,jobs_status,description,portfolio,phone_number,fk_userID) VALUES ('$fname','$lname','$job_status','$description','$portfolio','$phone',LAST_INSERT_ID())";
+  $db->query($sql);
  
   if ($res) {
    $errTyp = "success";
@@ -89,7 +97,6 @@ $password = hash('sha256', $pass);
    unset($name);
    unset($email);
    unset($pass);
-  unset($role);
   } else {
    $errTyp = "danger";
    $errMSG = "Something went wrong, try again later...";
@@ -145,19 +152,43 @@ $password = hash('sha256', $pass);
             <input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
             
                <span class="text-danger"><?php echo $passError; ?></span>
-      
-            <hr />
-            <input type="checkbox" name="role" value="student"> Student
-            <input type="checkbox" name="role" value="company"> Company
-            <input type="checkbox" name="role" value="admin"> Admin
+             <div class="form-group">
+    <label>First Name</label>
+    <input type="text" class="form-control" placeholder="First Name" name="f_name">
+  </div>
+   <div class="form-group">
+    <label>Last Name</label>
+    <input type="text" class="form-control" placeholder="Last Name" name="l_name">
+  </div>
+ 
+  <div class="form-group">
+    <label>Phone Number</label>
+    <input type="text" class="form-control" name="phone" placeholder="Phone">
+  </div>
+  <div class="form-group">
+    <label>Portfolio URL</label>
+    <input type="text" class="form-control" name="portfolio" placeholder="Website">
+  </div>
+  <div class="form-group">
+    <label>Short Description</label>
+    <textarea class="form-control" name="description" placeholder="Add short description"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Job Status</label>
+    <select multiple class="form-control" name="job_status">
+      <option value="employed">Employed</option>
+      <option value="available">Available</option>
+    </select>
+  </div>
+
             
             <button type="submit" class="btn btn-block btn-primary" name="btn-signup">Sign Up</button>
             <hr />
-          
-            <a href="index.php">Sign in Here...</a>
-    
+
   
    </form>
+          
+        </div>
 </body>
 </html>
 <?php ob_end_flush(); ?>

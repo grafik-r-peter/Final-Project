@@ -35,7 +35,7 @@ foreach ($data as $row) {
 
 $skills=array();
 foreach ($rows as $row) {
-   $skills[$row['profile_id']]["first_name"] = $row["first_name"];  
+   $skills[$row['profile_id']]["first_name"] = $row["first_name"];
    $skills[$row["profile_id"]]["skills"][$row["skillsID"]]=array("skills"=>$row["skill"]);
 } 
 
@@ -50,17 +50,26 @@ $badges=array();
 foreach ($rows as $row1) {
    $badges[$row1['profile_id']]["first_name"] = $row1["first_name"];  
    $badges[$row1["profile_id"]]["badges"][$row1["badgeID"]]=array("badges"=>$row1["badge_image"]);
+    $badges[$row1["profile_id"]]["projects"][$row1["projectID"]]=array("projects"=>$row1["project_name"]);
 } 
+
 
 foreach ($badges as $row) {
                 $arr1= $row["badges"];
                 foreach ($arr1 as $badge){?>
 
                 <img src="<?php echo $badge["badges"] ?>" alt="">
+
             <?php
                 }
-            }
+                $arr2=$row["projects"];
+                foreach ($arr2 as $badge){?>
+            
 
+              <p><?php echo $badge["projects"] ?></p>
+              <?php
+            }
+}
 
 ?>
 
@@ -97,6 +106,8 @@ Image<img src="assets/img/safe_prefix_secure_info1st_badge_bronze.png" alt="">
     <div class="col-md-12">
       <h3>Information</h3>
       <a href=<?php echo 'inc/user_profile/actions_forms/update_profile.php?id='.$_SESSION["student"]?> class="btn btn-secondary">Edit my Data</a>
+      <a href=<?php echo 'inc/user_profile/actions_forms/add_skills.php?id='.$_SESSION["student"]?> class="btn btn-secondary">Add Skills</a>
+      <a href="inc/user_profile/actions/add_photo.php" class="btn btn-secondary">Upload Profile Picture</a>
       <table class="table table-sm table-profile">
         <tbody>
            <tr>
@@ -159,11 +170,14 @@ foreach ($badges as $row) {
                 $arr1= $row["badges"];
                 foreach ($arr1 as $badge){?>
                   <div class="col-4 text-center">      
-      <img src="<?php echo $badge["badges"] ?>" alt="{blabla}">
-      <p>Week 1 <br>Golden Git, HTML5, CSS3</p>
-    </div> 
+          <img src="<?php echo $badge["badges"] ?>" alt="{blabla}">
+        <?php } 
+          foreach ($arr2 as $badge){
+        ?>
+      <p>Week 1 <br><p><?php echo $badge["projects"] ?></p>
+     
 
-          
+          </div>
             <?php
                 }
             }

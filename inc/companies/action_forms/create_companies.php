@@ -1,79 +1,127 @@
 <?php   
   include '../../db_actions.php';
   /*include '../../../header.php';*/
+
+$passError ="";
+$emailError ="";
+$nameError ="";
+$email="";
+$name="";
+
+
+$error = false;
+
+if ( isset($_POST['btn-signup']) ) {
+ 
+ // sanitize user input to prevent sql injection
+ $name = trim($_POST['name']);
+  //trim - strips whitespace (or other characters) from the beginning and end of a string
+  $name = strip_tags($name);
+  // strip_tags — strips HTML and PHP tags from a string
+  $name = htmlspecialchars($name);
+ // htmlspecialchars converts special characters to HTML entities
+ $email = trim($_POST['email']);
+ $email = strip_tags($email);
+ $email = htmlspecialchars($email);
+
+ $pass = trim($_POST['pass']);
+ $pass = strip_tags($pass);
+ $pass = htmlspecialchars($pass);
+
+ $role="company";
+$company_name =$_POST['company_name'];
+$company_address =$_POST['company_address'];
+  
+
+ // basic name validation
+ if (empty($name)) {
+  $error = true;
+  $nameError = "Please enter your full name.";
+ } else if (strlen($name) < 3) {
+  $error = true;
+  $nameError = "Name must have at least 3 characters.";
+ } else if (!preg_match("/^[a-zA-Z ]+$/",$name)) {
+  $error = true;
+  $nameError = "Name must contain alphabets and space.";
+ }
+
+ //basic email validation
+ if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
+  $error = true;
+  $emailError = "Please enter valid email address.";
+ } else {
+  // checks whether the email exists or not
+  $where=array("email"=>$email);
+  $rows=$obj->select_record("users",$where);
+  $count = count($rows);
+
+  if($count!=0){
+   $error = true;
+   $emailError = "Provided Email is already in use.";
+  }
+ }
+
+ // password validation
+ if (empty($pass)){
+  $error = true;
+  $passError = "Please enter password.";
+ } else if(strlen($pass) < 6) {
+  $error = true;
+  $passError = "Password must have at least 6 characters.";
+ }
+
+ // password hashing for security
+$password = hash('sha256', $pass);
+
+
+ // if there's no error, continue to signup
+ if( !$error ) {
+  $arr=array("username"=>$name,"email"=>$email,"password"=>$password,"user_role"=>$role);
+  $res=$obj->insert_record('users',$arr);
+  $sql="INSERT INTO companies(company_name, company_address, fk_userID) VALUES ('$company_name','$company_address',LAST_INSERT_ID())";
+  $db->query($sql);
+ 
+  if ($res) {
+   $errTyp = "success";
+   $errMSG = "Successfully registered, you may login now";
+   unset($name);
+   unset($email);
+   unset($pass);
+   unset($company_name);
+   unset($company_address);
+  } else {
+   $errTyp = "danger";
+   $errMSG = "Something went wrong, try again later...";
+  }
+  
+ }
+
+
+}
 ?>
-
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Alumnis Of Code Factory</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" type="text/css" href="../../../assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="../../../assets/css/styles-global.css">
-</head>
-<body>
-
-<div class="container-fluid topbar">
-  <div class="topbar-left">
-    <a class="nav-link" target="_blank" href="https://www.codefactory.wien/"> www.codefactory.wien</a>
-  </div>
-
-  <div class="topbar-right">
-    <a target="_blank" href="https://www.facebook.com/CodeFactoryVienna">
-      <img class="logobar" src="../../../assets/img/fb.svg" alt="Logo Facebook">
-    </a>
-    <a target="_blank" href="https://www.instagram.com/codefactoryvienna/">
-      <img class="logobar" src="../../../assets/img/ig.svg" alt="Logo Instagram">
-    </a>
-  </div>
-</div>
-
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-  <a class="navbar-brand"  routerLink = "/"><img src="../../../assets/img/alumnilogo.png" alt="Alumni of Code Factory Logo"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExample04">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink = "/" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink = "stories" routerLinkActive="nav-active">Stories</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink = "directory" routerLinkActive="nav-active">Directory</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink = "career" routerLinkActive="nav-active">Careers</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink = "events" routerLinkActive="nav-active">Events</a>
-      </li>
-    </ul>
-
-    <div *ngIf="authService.user | async; else loggedOut">
-        <span  class="user-welcome mr-3" *ngIf="authService.user | async">
-          Logged in as {{ (authService.user | async)?.email }} | <a routerLink = "intranet">Intranet</a>
-        </span>
-    </div>
-    <ng-template #loggedOut>
-    <a routerLink = "intranet">
-      <button type="button" class="btn">Intranet</button>
-    </a>
-    </ng-template>
-</div>
-</nav>
 
         <div class="container">
           
        
-        <form action="../actions/a_create_companies.php" method="post" class="my-4">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="my-4">
+            <input type="text" name="name" class="form-control" placeholder="Enter Name" maxlength="50" value="<?php echo $name ?>" />
+      
+               <span class="text-danger"><?php echo $nameError; ?></span>
+          
+    
+
+            <input type="email" name="email" class="form-control" placeholder="Enter Your Email" maxlength="40" value="<?php echo $email ?>" />
+    
+               <span class="text-danger"><?php echo $emailError; ?></span>
+      
+          
+      
+            
+        
+            <input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
+            
+               <span class="text-danger"><?php echo $passError; ?></span>
+             <div class="form-group">
               <div class="form-group">
                 <label for="exampleInputEmail1">Company name:</label>
                 <input type="text"
@@ -90,23 +138,10 @@
                 placeholder="Company address:"
                 >
               </div>
-          
-              <div class="form-group">
-                <label for="exampleInputEmail1">id:</label>
 
-                <select class="custom-select mb-4" name="fk_userID">
-                <?php 
-                $rowss=$obj->fetch_records("companies");
 
-                foreach($rowss as $data){ 
-                  echo "<option value='".$data['company_id']."'>".$data['company_id']."</option>";
-              }
-                ?>
-              </select>
-            </div>    
-
-              <button type="submit" class=" btn btn-danger">
-                create
+              <button type="submit" class=" btn btn-danger" name="btn-signup">
+                Add Company
               </button>
 
               <a href="../../../admin.php">
@@ -120,29 +155,4 @@
 <?php 
 include '../../footer.php';
 ?>
-<!-- this is the form wich control the companies crud -->
 
-<!-- table class="table my-3 mx-1 vertical-align">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Company Name</th>
-      <th scope="col">Company Address</th>
-      <th scope="col">operation</th>
-    </tr>
-  </thead>
-  <tbody class="table-striped" id="selresult">
-  
-      
-    <?php /*foreach($rowss as $data)*/{
-      echo "<tr>";              //loops to print the records
-      echo "<td>".$data['company_name']."</td>";
-      echo "<td>".$data['company_address']."</td>";
-      echo "<td><a href='inc/companies/action_forms/update_companies.php?company_id=".$data['company_id']."' role='button' class='btn btn-warning mx-1 btn-sm px-3'>Edit</a>
-        <a href='inc/companies/action_forms/delete_companies.php?company_id=".$data['company_id']."' role='button' class='btn btn-danger mx-1 btn-sm px-3'>delete</a>
-        </td>";
-      echo "</tr>";
-    } ?>
-
-  
-  </tbody>
-  </table> -->

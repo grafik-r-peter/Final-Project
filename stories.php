@@ -1,7 +1,7 @@
 <?php 
 include 'inc/header.php';
 include "inc/carousel.php";
-include "inc/stories/actions/list_stories.php"
+include "inc/stories/list_stories.php"
 ?>
 
 
