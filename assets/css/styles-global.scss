@@ -208,13 +208,34 @@ a:hover {
 
 // DIRECTORY PAGE //
 .students-table td {
-  font-size: 0.8rem;
+  font-size: 0.65rem;
+  vertical-align: middle; 
+  button {
+    background: $prim-color;
+    color:#fff;
+    font-size: 0.8rem;
+    padding: .2rem .5rem;
+    border:none;
+  }
+  button:hover {
+    background: $compl-color;
+  }
 }
+
+
 
 .table .students-thead th {
   background: $prim-color;
   border:none;
+  font-size: 0.8rem;  
 }
+
+.dir-img {
+  max-width: 80px;
+  max-height: 80px;
+  overflow: hidden;
+}
+
 
 // FOOTER //
 
@@ -498,5 +519,3 @@ a:hover {
     border-right: 1px solid #dee2e6;
   }
 }
-
-

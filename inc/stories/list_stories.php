@@ -2,8 +2,7 @@
 <!-- File for joining Tables for the Content Page stories.php -->
 
 <?php 
-
-include "inc/db_actions.php";
+// include "inc/db_actions.php";
 
 
 $tables=array("student_profile", "stories", "student_skills", "skills", "images");

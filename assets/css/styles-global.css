@@ -141,11 +141,26 @@ a:hover {
   background: #821918; }
 
 .students-table td {
-  font-size: 0.8rem; }
+  font-size: 0.65rem;
+  vertical-align: middle; }
+  .students-table td button {
+    background: #821918;
+    color: #fff;
+    font-size: 0.8rem;
+    padding: .2rem .5rem;
+    border: none; }
+  .students-table td button:hover {
+    background: #d63030; }
 
 .table .students-thead th {
   background: #821918;
-  border: none; }
+  border: none;
+  font-size: 0.8rem; }
+
+.dir-img {
+  max-width: 80px;
+  max-height: 80px;
+  overflow: hidden; }
 
 .footer {
   background: #821918;
