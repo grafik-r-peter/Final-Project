@@ -31,6 +31,11 @@ include "db_actions.php";
         <a class="nav-link" href="./profile.php">Profile</a>
       </li>
     <?php }?>
+    <?php if(isset($_SESSION['admin'])!=""){  ?>
+      <li class="nav-item">
+        <a class="nav-link" href="./admin.php">Admin Panel</a>
+      </li>
+    <?php }?>
     </ul>
     <?php if(isset($_SESSION['student'])!=""){  ?>
     <div>
