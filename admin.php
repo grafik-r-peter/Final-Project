@@ -9,11 +9,6 @@ include "inc/nav.php";
 
 <link rel="stylesheet" href="./assets/css/form.css">
 
-<style>
-
-
-
-</style>
 
          <style>
              .badgevert {
@@ -28,7 +23,7 @@ include "inc/nav.php";
              	justify-content: flex-start;
              	align-items: center;
              	width: 100%;
-             	height: 12vw;
+             	height: 9vw;
              }
 
              .badgeline img {
@@ -42,6 +37,7 @@ include "inc/nav.php";
              	justify-content: space-around;
              	width: 97%;
              	height: 2vw;
+             	margin-bottom: 2vw;
              }
 
              .radioheight {
@@ -113,7 +109,7 @@ function listingBadges() {
 
 		$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-		$sql = "SELECT * FROM student_profile JOIN students_results on student_profile.profile_id = students_results.fk_student_profileID JOIN badges on students_results.fk_badgeID = badges.badgeID";
+		$sql = "SELECT * FROM student_profile join students_results on students_results.fk_student_profileID = student_profile.profile_id JOIN badges on students_results.fk_badgeID = badges.badgeID";
 
 		$result = mysqli_query($conn, $sql);
 
