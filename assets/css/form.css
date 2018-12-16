@@ -1,0 +1,21 @@
+.myform {
+	/* background : #212529; */
+	border-radius: 1em;
+	color: white;
+}
+
+.myinput {
+
+}
+
+tbody {
+	vertical-align: middle;
+}
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
+
+.table > thead  > tr {
+     border-radius: 2em;
+}
